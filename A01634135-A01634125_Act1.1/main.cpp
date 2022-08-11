@@ -49,6 +49,6 @@ void mergeSort(double arr[], int left, int right){
 }
 
 int main(){
-    
+
     return 0;
 }
