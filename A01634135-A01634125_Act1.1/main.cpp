@@ -51,14 +51,15 @@ void mergeSort(double arr[], int left, int right){
 }
 
 int main(){
+    int count = 0;
     string fileName;
     cin >> fileName;
-    ifstream myFile(fileName);
     string line;
+    ifstream myFile(fileName);
+    
     getline(myFile, line);
     int n = stoi(line);
     double myArray[n];
-    int count = 0;
 
     while(!myFile.eof()){
         getline(myFile, line);
