@@ -5,6 +5,8 @@ Fecha: 11 de agosto de 2022
 */
 
 #include <iostream>
+#include <fstream>
+#include <string>
 using namespace std;
 
 /*
@@ -49,6 +51,25 @@ void mergeSort(double arr[], int left, int right){
 }
 
 int main(){
+    string fileName;
+    cin >> fileName;
+    ifstream myFile(fileName);
+    string line;
+    getline(myFile, line);
+    int n = stoi(line);
+    double myArray[n];
+    int count = 0;
+
+    while(!myFile.eof()){
+        getline(myFile, line);
+        myArray[count] = stod(line);
+        count++;
+    }
+
+    mergeSort(myArray, 0, n - 1);
+    for (int i = 0; i < n; i++){
+        cout << myArray[i] << " ";
+    }
 
     return 0;
 }
