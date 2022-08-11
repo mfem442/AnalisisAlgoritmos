@@ -53,21 +53,22 @@ void mergeSort(double arr[], int left, int right){
 int main(){
     int count = 0;
     string fileName;
+    cout << "Escribe el nombre del archivo (ej: prueba.txt): ";
     cin >> fileName;
     string line;
     ifstream myFile(fileName);
-    
+
     getline(myFile, line);
-    int n = stoi(line);
+    int n = stoi(line); //Guarda la primera linea en la variable n
     double myArray[n];
 
-    while(!myFile.eof()){
+    while(!myFile.eof()){ //Lee el resto de las lineas
         getline(myFile, line);
         myArray[count] = stod(line);
         count++;
     }
 
-    mergeSort(myArray, 0, n - 1);
+    mergeSort(myArray, 0, n - 1); //Algoritmo MergeSort
     for (int i = 0; i < n; i++){
         cout << myArray[i] << " ";
     }
