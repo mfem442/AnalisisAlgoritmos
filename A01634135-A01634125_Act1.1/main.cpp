@@ -1,12 +1,22 @@
+/*
+Programa que implementa el algoritmo MergeSort utilizando la tecnica de "Divide y venceras".
+Autores: Maria Fernanda Elizalde Macias A01634135 - Sofia del Pilar Batiz Martinez A01634125
+Fecha: 11 de agosto de 2022
+*/
+
 #include <iostream>
 using namespace std;
 
-
-void merge(int arr[], int left, int middle, int right){
-    int newArr[right + 1];
+/*
+Funcion que ordena los valores de un arreglo de mayor a menor
+Recibe un arreglo de valores double, y los indices del primer valor, el ultimo valor y el valor medio
+Crea un nuevo arreglo con los valores ordenados y se copia al arreglo original
+*/
+void merge(double arr[], int left, int middle, int right){
+    double newArr[right + 1];
     int i = left, j = middle + 1, k = left;
     while(i <= middle && j <= right){
-        if(arr[i] < arr[j]){
+        if(arr[i] > arr[j]){
             newArr[k++] = arr[i++];
         }
         else{
@@ -24,7 +34,12 @@ void merge(int arr[], int left, int middle, int right){
     }
 }
 
-void mergeSort(int arr[], int left, int right){
+/*
+Funcion que implementa el algoritmo MergeSort con la tecnica de "Divide y Venceras"
+Recibe un arreglo de valores double, y los indices del primer valor y el ultimo valor
+Implementa recursivamente el algoritmo (diviendo los arreglos hasta llegar al caso base) y combina el arreglo ordenado
+*/
+void mergeSort(double arr[], int left, int right){
     if(left < right){
         int middle = (left + right) / 2;
         mergeSort(arr, left, middle);
@@ -34,6 +49,6 @@ void mergeSort(int arr[], int left, int right){
 }
 
 int main(){
-
+    
     return 0;
 }
