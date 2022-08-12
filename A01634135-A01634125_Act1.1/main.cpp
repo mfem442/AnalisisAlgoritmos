@@ -13,6 +13,7 @@ using namespace std;
 Funcion que ordena los valores de un arreglo de mayor a menor
 Recibe un arreglo de valores double, y los indices del primer valor, el ultimo valor y el valor medio
 Crea un nuevo arreglo con los valores ordenados y se copia al arreglo original
+Complejidad computacional: O(n)
 */
 void merge(double arr[], int left, int middle, int right){
     double newArr[right + 1];
@@ -40,8 +41,9 @@ void merge(double arr[], int left, int middle, int right){
 Funcion que implementa el algoritmo MergeSort con la tecnica de "Divide y Venceras"
 Recibe un arreglo de valores double, y los indices del primer valor y el ultimo valor
 Implementa recursivamente el algoritmo (diviendo los arreglos hasta llegar al caso base) y combina el arreglo ordenado
+Complejidad computacional: O(n * log(n))
 */
-void mergeSort(double arr[], int left, int right){
+void mergeSort(double arr[], int left, int right){ 
     if(left < right){
         int middle = (left + right) / 2;
         mergeSort(arr, left, middle);
@@ -51,7 +53,6 @@ void mergeSort(double arr[], int left, int right){
 }
 
 int main(){
-    int count = 0;
     string fileName;
     cout << "Escribe el nombre del archivo (ej: prueba.txt): ";
     cin >> fileName;
@@ -62,6 +63,7 @@ int main(){
     int n = stoi(line); //Guarda la primera linea en la variable n
     double myArray[n];
 
+    int count = 0;
     while(!myFile.eof()){ //Lee el resto de las lineas
         getline(myFile, line);
         myArray[count] = stod(line);
