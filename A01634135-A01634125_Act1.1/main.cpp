@@ -52,10 +52,8 @@ void mergeSort(double arr[], int left, int right){
     }
 }
 
-int main(){
-    string fileName;
-    cout << "Escribe el nombre del archivo (ej: prueba.txt): ";
-    cin >> fileName;
+int main(int argc, char *argv[]){
+    string fileName = argv[1];
     string line;
     ifstream myFile(fileName);
 
