@@ -8,6 +8,7 @@ Fecha: 23 de agosto de 2022
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 /*
@@ -16,7 +17,7 @@ Funcion que imprime las monedas segun su cantidad, cada una por linea
 Recibe un vector con las monedas usadas y la cantidad a regresar
 Imprime los valores del vector las veces correspondientes para llegar a la cantidad
 */
-void printCoins(vector<int> _monedasUsadas, int _cantidad){
+void print(vector<int> _monedasUsadas, int _cantidad){
     int moneda = _cantidad;
     while (moneda > 0){
         int newMoneda = _monedasUsadas[moneda];
@@ -50,6 +51,34 @@ vector<int> obtieneMonedas(vector<int> _minimoMonedas, vector<int> _monedasUsada
     return _monedasUsadas;
 }
 
+/*
+Complejidad computacional: O(n^2)
+Funcion que realiza la implementacion del Algoritmo Avaro para el Problema del Cambio
+Recibe el arreglo de denominaciones, la cantidad a regresar y el numero de denominaciones
+Imprime las monedas usadas para dar el cambio
+*/
+void avaro(vector<int> _denominaciones, int _cantidad){
+    vector<int> monedas;
+    sort(_denominaciones.begin(), _denominaciones.end(), greater<int>()); //Ordena denominaciones de mayor a menor
+    
+    for(int i = 0; i < _denominaciones.size(); i++){
+        while(_cantidad >= _denominaciones[i]){
+            _cantidad -= _denominaciones[i];
+            monedas.push_back(_denominaciones[i]); //Guarda monedas utilizadas
+        }
+    }
+
+    //Imprime resultados
+    if(_cantidad == 0){
+        for(int i = 0; i < monedas.size(); i++){
+            cout << monedas[i] << endl;
+        }
+    }
+    else{
+        cout << "No hay cambio exacto" << endl;
+    }
+}
+
 int main(){
     //Lectura de archivo
     string fileName = "prueba.txt";
@@ -80,10 +109,13 @@ int main(){
     vector<int> monedasUsadas(cantidad + 1, 0); //monedas usadas para el cambio
 
     cout << "Cambio a regresar: " << cantidad << endl;
+    cout << "----- PROGRAMACION DINAMICA -----" << endl;
     cout << "Monedas: " << endl;
-
     vector<int> monedas = obtieneMonedas(minimoMonedas, monedasUsadas, denominaciones, cantidad);
-    printCoins(monedas, cantidad);
+    print(monedas, cantidad);
+
+    cout << "----- METODO AVARO -----" << endl;
+    avaro(denominaciones, cantidad);
 
     return 0;
 }
