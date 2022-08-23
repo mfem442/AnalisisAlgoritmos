@@ -1,7 +1,7 @@
 /*
 Programa que resuelve un problema de cambio de monedas implementando Programacion Dinamica.
 Autores: Maria Fernanda Elizalde Macias A01634135 - Sofia del Pilar Batiz Martinez A01634125
-Fecha: 21 de agosto de 2022
+Fecha: 23 de agosto de 2022
 */
 
 #include <iostream>
@@ -11,64 +11,79 @@ Fecha: 21 de agosto de 2022
 using namespace std;
 
 /*
-
+Complejidad computacional: O(n)
+Funcion que imprime las monedas segun su cantidad, cada una por linea
+Recibe un vector con las monedas usadas y la cantidad a regresar
+Imprime los valores del vector las veces correspondientes para llegar a la cantidad
 */
-int dynamic(vector<int> coins, int num, int n){
-    vector<int> vec(num + 1, num + 1);
-    vec[0] = 0;
-    
-    for(int i = 1; i < vec.size(); i++){
-        for(int j = 0; j < n; j++){
-            if (coins[j] <= i){
-                vec[i] = min(vec[i], vec[i - coins[j]] + 1);
+void printCoins(vector<int> _monedasUsadas, int _cantidad){
+    int moneda = _cantidad;
+    while (moneda > 0){
+        int newMoneda = _monedasUsadas[moneda];
+        cout << newMoneda << endl;
+        moneda -= newMoneda;
+    }
+}
+
+/*
+Complejidad computacional: O(n*m)
+Funcion que implementa la Programacion Dinamica para obtener las monedas minimas necesarias para el cambio
+Recibe un vector con el minimo de monedas por denominacion, un vector indicando las monedas utilizadas, el vector de las denominaciones y la cantidad a regresar
+Regresa un vector<int> con las monedas usadas para dar el cambio 
+*/
+vector<int> obtieneMonedas(vector<int> _minimoMonedas, vector<int> _monedasUsadas, vector<int> _denominaciones, int _cantidad){
+    for(int i = 0; i < _cantidad + 1; i++){
+        int count = i; //cantidad de monedas
+        int moneda = 1; //tipo de moneda
+
+        for(int j = 0; j < _denominaciones.size(); j++){
+            int k = _denominaciones[j];
+            if(k <= i && _minimoMonedas[i - k] + 1 < count){
+                count = _minimoMonedas[i - k] + 1;
+                moneda = k;
             }
         }
-    }
 
-    if (vec[num] == (num + 1)){
-        return -1;
+        _minimoMonedas[i] = count; //minimo de monedas necesarias para el cambio
+        _monedasUsadas[i] = moneda; //monedas usadas para el cambio
     }
-    else{
-        return vec[num];
-    }
-    
-}       
-
-
+    return _monedasUsadas;
+}
 
 int main(){
-    /*
-    string fileName = argv[1];
+    //Lectura de archivo
+    string fileName = "prueba.txt";
     string line;
     ifstream myFile(fileName);
 
     getline(myFile, line);
-    int n = stoi(line); //Guarda la primera linea en la variable n
-    vector<int> myVector(n);
-
+    int n = stoi(line); //Guarda la primera linea en n
+    vector<int> denominaciones(n + 2);
     int count = 0;
-    while(!myFile.eof() && count == n - 1){ //Lee el resto de las lineas
+
+    while(!myFile.eof()){ //Guarda el resto de las lineas
         getline(myFile, line);
-        myVector[count] = stod(line);
+        denominaciones[count] = stoi(line);
         count++;
     }
 
-    getline(myFile, line);
-    int p = stoi(line);
-    getline(myFile, line);
-    int q = stoi(line);
-    */
-    int n, q, p, cambio;
-    n = 4;
-    q = 100;
-    p = 93;
-    cambio = q - p;
-    vector<int> myVector = {10, 5, 2, 1};
+    //Guarda los ultimos dos valores
+    int p = denominaciones[n];
+    int q = denominaciones[n + 1];
+    int cantidad = q - p; //cantidad a regresar
+    //Los elimina del vector<int>
+    denominaciones.pop_back();
+    denominaciones.pop_back();
 
-    //funcion
-    cout << dynamic(myVector, cambio, n);
-    
+    vector<int> cantidadMonedas(cantidad + 1, 0); //cantidad de monedas por cada denominacion
+    vector<int> minimoMonedas(cantidad + 1, 0); //minimo de monedas para el cambio
+    vector<int> monedasUsadas(cantidad + 1, 0); //monedas usadas para el cambio
+
+    cout << "Cambio a regresar: " << cantidad << endl;
+    cout << "Monedas: " << endl;
+
+    vector<int> monedas = obtieneMonedas(minimoMonedas, monedasUsadas, denominaciones, cantidad);
+    printCoins(monedas, cantidad);
+
     return 0;
 }
-
-
