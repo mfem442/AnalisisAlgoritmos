@@ -59,7 +59,6 @@ Imprime las monedas usadas para dar el cambio
 */
 void avaro(vector<int> _denominaciones, int _cantidad){
     vector<int> monedas;
-    sort(_denominaciones.begin(), _denominaciones.end(), greater<int>()); //Ordena denominaciones de mayor a menor
     
     for(int i = 0; i < _denominaciones.size(); i++){
         while(_cantidad >= _denominaciones[i]){
@@ -100,6 +99,7 @@ int main(){
     //Los elimina del vector<int>
     denominaciones.pop_back();
     denominaciones.pop_back();
+    sort(denominaciones.begin(), denominaciones.end(), greater<int>()); //mayor a menor
 
     vector<int> cantidadMonedas(cantidad + 1, 0); //cantidad de monedas por cada denominacion
     vector<int> minimoMonedas(cantidad + 1, 0); //minimo de monedas para el cambio
