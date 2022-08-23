@@ -74,9 +74,6 @@ void avaro(vector<int> _denominaciones, int _cantidad){
             cout << monedas[i] << endl;
         }
     }
-    else{
-        cout << "No hay cambio exacto" << endl;
-    }
 }
 
 int main(){
@@ -114,7 +111,8 @@ int main(){
     vector<int> monedas = obtieneMonedas(minimoMonedas, monedasUsadas, denominaciones, cantidad);
     print(monedas, cantidad);
 
-    cout << "----- METODO AVARO -----" << endl;
+    cout << "----- ALGORITMO AVARO -----" << endl;
+    cout << "Monedas: " << endl;
     avaro(denominaciones, cantidad);
 
     return 0;
